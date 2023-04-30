@@ -3,9 +3,10 @@ import * as S from '@/styles/pages/product';
 import { formatToBRL } from '@/utils/currency';
 import axios from 'axios';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Stripe from 'stripe';
 
 interface ProductProps {
@@ -45,32 +46,37 @@ export default function Product({ product }: ProductProps) {
   if (isFallback) return <p>Carregando produto...</p>;
 
   return (
-    <S.ProductContainer>
-      <S.ImageContainer>
-        <Image
-          src={product.imageUrl}
-          alt={product.name}
-          width={520}
-          height={480}
-          priority
-        />
-      </S.ImageContainer>
+    <>
+      <Head>
+        <title>{product.name} | Ignite Shop</title>
+      </Head>
+      <S.ProductContainer>
+        <S.ImageContainer>
+          <Image
+            src={product.imageUrl}
+            alt={product.name}
+            width={520}
+            height={480}
+            priority
+          />
+        </S.ImageContainer>
 
-      <S.ProductDetails>
-        <h1>{product.name}</h1>
-        <span>{product.price}</span>
+        <S.ProductDetails>
+          <h1>{product.name}</h1>
+          <span>{product.price}</span>
 
-        <p>{product.description}</p>
+          <p>{product.description}</p>
 
-        <button
-          type="button"
-          onClick={handleBuyProduct}
-          disabled={isCreatingCheckout}
-        >
-          Comprar agora
-        </button>
-      </S.ProductDetails>
-    </S.ProductContainer>
+          <button
+            type="button"
+            onClick={handleBuyProduct}
+            disabled={isCreatingCheckout}
+          >
+            Comprar agora
+          </button>
+        </S.ProductDetails>
+      </S.ProductContainer>
+    </>
   );
 }
 
