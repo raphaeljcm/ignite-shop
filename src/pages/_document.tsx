@@ -1,4 +1,4 @@
-import { getCssText } from '@/styles';
+import { getCssText } from '@/styles/theme';
 import { Head, Html, Main, NextScript } from 'next/document';
 
 export default function Document() {
