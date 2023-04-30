@@ -12,7 +12,7 @@ interface HomeProps {
     id: string;
     name: string;
     imageUrl: string;
-    price: number;
+    price: string;
   }[];
 }
 
@@ -30,6 +30,7 @@ export default function Home({ products }: HomeProps) {
         <S.Product
           key={product.id}
           href={`/product/${product.id}`}
+          prefetch={false}
           className="keen-slider__slide"
         >
           <Image
