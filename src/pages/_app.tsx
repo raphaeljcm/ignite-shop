@@ -3,6 +3,7 @@ import { globalStyles } from '@/styles/global';
 import * as S from '@/styles/pages/app';
 import type { AppProps } from 'next/app';
 import { Roboto } from 'next/font/google';
+import Image from 'next/image';
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -15,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <S.Container className={roboto.className}>
       <S.Header>
-        <img src={logoImg.src} alt="" />
+        <Image src={logoImg} alt="logo" />
       </S.Header>
 
       <Component {...pageProps} />
