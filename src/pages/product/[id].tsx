@@ -1,9 +1,11 @@
 import { stripe } from '@/lib/stripe';
 import * as S from '@/styles/pages/product';
 import { formatToBRL } from '@/utils/currency';
+import axios from 'axios';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import Stripe from 'stripe';
 
 interface ProductProps {
@@ -18,9 +20,27 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
+  const [isCreatingCheckout, setIsCreatingCheckout] = useState(false);
+
   const { isFallback } = useRouter();
 
-  const handleBuyProduct = () => console.log(product.defaultPriceId);
+  const handleBuyProduct = async () => {
+    try {
+      setIsCreatingCheckout(true);
+
+      const { data } = await axios.post('/api/checkout', {
+        priceId: product.defaultPriceId,
+      });
+      const { checkoutUrl } = data;
+
+      window.location.href = checkoutUrl;
+    } catch (err) {
+      // Connect it with some observability tool like Sentry, Datadog, etc
+      setIsCreatingCheckout(false);
+
+      alert('Failed to buy product, please try again later');
+    }
+  };
 
   if (isFallback) return <p>Carregando produto...</p>;
 
@@ -42,7 +62,11 @@ export default function Product({ product }: ProductProps) {
 
         <p>{product.description}</p>
 
-        <button type="button" onClick={handleBuyProduct}>
+        <button
+          type="button"
+          onClick={handleBuyProduct}
+          disabled={isCreatingCheckout}
+        >
           Comprar agora
         </button>
       </S.ProductDetails>
