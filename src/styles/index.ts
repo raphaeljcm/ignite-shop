@@ -1,4 +1,4 @@
-import { createStitches } from "@stitches/react";
+import { createStitches } from '@stitches/react';
 
 export const {
   config,
@@ -8,7 +8,7 @@ export const {
   keyframes,
   getCssText,
   createTheme,
-  css
+  css,
 } = createStitches({
   theme: {
     colors: {
@@ -22,5 +22,5 @@ export const {
       green500: '#00875f',
       green300: '#00b37e',
     } as const,
-  } 
-})
+  },
+});

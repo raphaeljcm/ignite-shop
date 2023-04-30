@@ -1,10 +1,7 @@
-import { styled } from "@/styles"
+import { styled } from '@/styles';
 
-const Button = styled('button', {
-
-})
+const Button = styled('button', {});
 
 export default function Home() {
-  return (
-   <Button>Enviar</Button>
-)}
+  return <Button>Enviar</Button>;
+}
