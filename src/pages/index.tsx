@@ -1,5 +1,6 @@
 import { stripe } from '@/lib/stripe';
 import * as S from '@/styles/pages/home';
+import { formatToBRL } from '@/utils/currency';
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
 import { GetStaticProps } from 'next';
@@ -58,7 +59,7 @@ export const getStaticProps: GetStaticProps = async () => {
       id: product.id,
       name: product.name,
       imageUrl: product.images[0],
-      price: price.unit_amount! / 100, // stripe saves in cents so we avoid floating point and any comma issues
+      price: formatToBRL(price.unit_amount! / 100), // stripe saves in cents so we avoid floating point and any comma issues
     };
   });
 
